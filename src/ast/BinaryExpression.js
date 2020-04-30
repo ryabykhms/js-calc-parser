@@ -23,7 +23,7 @@ class BinaryExpression extends Expression {
   }
 
   toString() {
-    return this.expressionLeft + ' ' + this.operation + ' ' + this.expressionRight;
+    return '[' + this.expressionLeft + ' ' + this.operation + ' ' + this.expressionRight + ']';
   }
 }
 

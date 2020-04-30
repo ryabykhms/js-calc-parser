@@ -72,7 +72,7 @@ class Parser {
   primary() {
     const current = this.get(0).text;
     if (this.match(TokenType.NUMBER)) {
-      return new NumberExpression(parseInt(current));
+      return new NumberExpression(parseFloat(current));
     }
     if (this.match(TokenType.HEX_NUMBER)) {
       return new NumberExpression(parseInt(current, 16));

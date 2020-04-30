@@ -39,10 +39,18 @@ class Lexer {
   tokenizeNumber() {
     let buffer = '';
     let current = this.peek(0);
-    while (Number.isFinite(parseFloat(current))) {
+    while (true) {
+      if (current === '.') {
+        if (buffer.indexOf('.') !== -1) {
+          throw new Error('Invalid float number');
+        }
+      } else if (!Number.isFinite(parseFloat(current))) {
+        break;
+      }
       buffer += current;
       current = this.next();
     }
+    console.log(buffer);
     this.addTokenWithText(TokenType.NUMBER, buffer);
   }
 

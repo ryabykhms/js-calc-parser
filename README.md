@@ -2,11 +2,11 @@
 Javascript module for computing math expressions by input string without native eval operator.
 
 Supported features:
-- [ ] Integer digits.
-- [ ] Hex digits.
-- [ ] Floating point digits.
-- [ ] Parentheses.
-- [ ] Basic math operations.
+- [x] Integer numbers.
+- [x] Hex numbers.
+- [x] Floating point numbers.
+- [x] Parentheses.
+- [x] Basic math operations.
 - [ ] Trigonometric operations.
 - [ ] Logarithmic operations.
 - [ ] Percent operation.
