@@ -1,6 +1,7 @@
 const TokenType = {
   NUMBER: 'NUMBER',
   HEX_NUMBER: 'HEX_NUMBER',
+  WORD: 'WORD',
 
   PLUS: 'PLUS',
   MINUS: 'MINUS',

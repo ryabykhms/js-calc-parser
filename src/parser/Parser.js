@@ -6,6 +6,7 @@ const { TokenType } = require('./TokenType');
 const { BinaryExpression } = require('../ast/BinaryExpression');
 const { NumberExpression } = require('../ast/NumberExpression');
 const { UnaryExpression } = require('../ast/UnaryExpression');
+const { ConstantExpression } = require('../ast/ConstantExpression');
 
 class Parser {
   constructor(tokens) {
@@ -76,6 +77,9 @@ class Parser {
     }
     if (this.match(TokenType.HEX_NUMBER)) {
       return new NumberExpression(parseInt(current, 16));
+    }
+    if (this.match(TokenType.WORD)) {
+      return new ConstantExpression(current);
     }
     if (this.match(TokenType.LPAREN)) {
       const result = this.expression();

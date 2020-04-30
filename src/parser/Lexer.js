@@ -22,8 +22,11 @@ class Lexer {
   tokenize() {
     while(this.pos < this.length) {
       const current = this.peek(0);
-      if (Number.isFinite(parseFloat(current))) this.tokenizeNumber();
-      else if (current === '#') {
+      if (this.isNumber(current)) {
+        this.tokenizeNumber();
+      } else if (this.isLetter(current)) {
+        this.tokenizeWord();
+      } else if (current === '#') {
         this.next();
         this.tokenizeHexNumber();
       }
@@ -44,24 +47,31 @@ class Lexer {
         if (buffer.indexOf('.') !== -1) {
           throw new Error('Invalid float number');
         }
-      } else if (!Number.isFinite(parseFloat(current))) {
+      } else if (!this.isNumber(current)) {
         break;
       }
       buffer += current;
       current = this.next();
     }
-    console.log(buffer);
     this.addTokenWithText(TokenType.NUMBER, buffer);
   }
 
   tokenizeHexNumber() {
     let buffer = '';
     let current = this.peek(0);
-    while (Number.isFinite(parseFloat(current)) || this.isHexNumber(current)) {
+    while (this.isNumber(current) || this.isHexNumber(current)) {
       buffer += current;
       current = this.next();
     }
     this.addTokenWithText(TokenType.HEX_NUMBER, buffer);
+  }
+
+  isNumber(current) {
+    return Number.isFinite(parseFloat(current));
+  }
+
+  isLetter(current) {
+    return current.toLowerCase() !== current.toUpperCase();
   }
 
   isHexNumber(current) {
@@ -72,6 +82,16 @@ class Lexer {
     const position = Lexer.OPERATOR_CHARS.indexOf(this.peek(0));
     this.addToken(Lexer.OPERATOR_TOKENS[position]);
     this.next();
+  }
+
+  tokenizeWord() {
+    let buffer = '';
+    let current = this.peek(0);
+    while (this.isLetter(current)) {
+      buffer += current;
+      current = this.next();
+    }
+    this.addTokenWithText(TokenType.WORD, buffer);
   }
 
   addToken(type) {
