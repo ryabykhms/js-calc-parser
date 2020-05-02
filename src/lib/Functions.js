@@ -1,35 +1,34 @@
 class Functions {
 
   static functions = {
-    sin: args => Functions.oneArgFunction(Math.sin, args),
-    cos: args => Functions.oneArgFunction(Math.cos, args),
-    tg: args => Functions.oneArgFunction(Math.tan, args),
-    ctg: args => Functions.oneArgFunction(this.ctg, args),
-    asin: args => Functions.oneArgFunction(Math.asin, args),
-    acos: args => Functions.oneArgFunction(Math.acos, args),
-    atan: args => Functions.oneArgFunction(Math.atan, args),
-    asinh: args => Functions.oneArgFunction(Math.asinh, args),
-    acosh: args => Functions.oneArgFunction(Math.acosh, args),
-    atanh: args => Functions.oneArgFunction(Math.atanh, args),
-    atan2: args => Functions.twoArgFunction(Math.atan2, args),
+    // trigonometric
+    sin: args => Functions.execFunction(Math.sin, args),
+    cos: args => Functions.execFunction(Math.cos, args),
+    tg: args => Functions.execFunction(Math.tan, args),
+    ctg: args => Functions.execFunction(this.ctg, args),
+    asin: args => Functions.execFunction(Math.asin, args),
+    acos: args => Functions.execFunction(Math.acos, args),
+    atan: args => Functions.execFunction(Math.atan, args),
+    asinh: args => Functions.execFunction(Math.asinh, args),
+    acosh: args => Functions.execFunction(Math.acosh, args),
+    atanh: args => Functions.execFunction(Math.atanh, args),
+    atan2: args => Functions.execFunction(Math.atan2, args),
+    // logarithmic
+    sqrt: args => Functions.execFunction(Math.sqrt, args),
+    cbrt: args => Functions.execFunction(Math.cbrt, args),
+    exp: args => Functions.execFunction(Math.exp, args),
+    ln: args => Functions.execFunction(Math.log, args),
+    log10: args => Functions.execFunction(Math.log10, args),
+    log2: args => Functions.execFunction(Math.log2, args),
+    pow: args => Functions.execFunction(Math.pow, args),
   };
 
   static ctg(args) {
     return 1 / Math.tan(args);
   }
 
-  static oneArgFunction(func, args) {
-    if (args.length !== 1) {
-      throw new Error('One args expected');
-    }
-    return func(args);
-  }
-
-  static twoArgFunction(func, args) {
-    if (args.length !== 2) {
-      throw new Error('Two args expected');
-    }
-    return func(args);
+  static execFunction(func, args) {
+    return func(...args);
   }
 
   static isExists(key) {

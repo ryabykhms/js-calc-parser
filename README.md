@@ -7,7 +7,7 @@ Supported features:
 - [x] Floating point numbers
 - [x] Parentheses
 - [x] Basic math operations
-- [ ] Trigonometric operations
+- [x] Trigonometric operations
 - [ ] Logarithmic operations
 - [ ] Percent operation
 - [x] Constants
