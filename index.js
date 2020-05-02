@@ -1,7 +1,9 @@
 const { Lexer } = require('./src/parser/Lexer');
 const { Parser } = require('./src/parser/Parser');
 
-const lexer = new Lexer('(E+2.876+2)*2');
+// const input = '(E+2.876+2)*2';
+const input = 'sin(PI/2)';
+const lexer = new Lexer(input);
 const tokens = lexer.tokenize();
 console.log(tokens);
 

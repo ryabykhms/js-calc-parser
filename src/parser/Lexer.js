@@ -6,11 +6,12 @@ const { TokenType } = require('./TokenType');
  */
 class Lexer {
 
-  static OPERATOR_CHARS = "+-*/()";
+  static OPERATOR_CHARS = "+-*/(),";
   static OPERATOR_TOKENS = [
     TokenType.PLUS, TokenType.MINUS,
     TokenType.STAR, TokenType.SLASH,
-    TokenType.LPAREN, TokenType.RPAREN
+    TokenType.LPAREN, TokenType.RPAREN,
+    TokenType.COMMA
   ];
   constructor(input) {
     this.input = input;

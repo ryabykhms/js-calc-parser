@@ -1,12 +1,13 @@
 /**
  * Class Parser accepts a list of tokens and the expression is output.
  */
-const { Token } = require('./Token');
-const { TokenType } = require('./TokenType');
-const { BinaryExpression } = require('../ast/BinaryExpression');
-const { NumberExpression } = require('../ast/NumberExpression');
-const { UnaryExpression } = require('../ast/UnaryExpression');
-const { ConstantExpression } = require('../ast/ConstantExpression');
+const {Token} = require('./Token');
+const {TokenType} = require('./TokenType');
+const {BinaryExpression} = require('../ast/BinaryExpression');
+const {NumberExpression} = require('../ast/NumberExpression');
+const {UnaryExpression} = require('../ast/UnaryExpression');
+const {ConstantExpression} = require('../ast/ConstantExpression');
+const {FunctionalExpression} = require('../ast/FunctionalExpression');
 
 class Parser {
   constructor(tokens) {
@@ -24,6 +25,17 @@ class Parser {
     return result;
   }
 
+  func() {
+    const name = this.consume(TokenType.WORD).text;
+    this.consume(TokenType.LPAREN);
+    const functionalExpression = new FunctionalExpression(name);
+    while (!this.match(TokenType.RPAREN)) {
+      functionalExpression.addArgument(this.expression());
+      this.match(TokenType.COMMA);
+    }
+    return functionalExpression;
+  }
+
   expression() {
     return this.additive();
   }
@@ -32,7 +44,7 @@ class Parser {
     let result = this.multiplicative();
     while (true) {
       if (this.match(TokenType.PLUS)) {
-        result =  new BinaryExpression('+', result, this.multiplicative());
+        result = new BinaryExpression('+', result, this.multiplicative());
         continue;
       }
       if (this.match(TokenType.MINUS)) {
@@ -48,7 +60,7 @@ class Parser {
     let result = this.unary();
     while (true) {
       if (this.match(TokenType.STAR)) {
-        result =  new BinaryExpression('*', result, this.unary());
+        result = new BinaryExpression('*', result, this.unary());
         continue;
       }
       if (this.match(TokenType.SLASH)) {
@@ -78,6 +90,9 @@ class Parser {
     if (this.match(TokenType.HEX_NUMBER)) {
       return new NumberExpression(parseInt(current, 16));
     }
+    if (this.get(0).type === TokenType.WORD && this.get(1).type === TokenType.LPAREN) {
+      return this.func();
+    }
     if (this.match(TokenType.WORD)) {
       return new ConstantExpression(current);
     }
@@ -87,6 +102,13 @@ class Parser {
       return result;
     }
     throw new Error('Unknown expression');
+  }
+
+  consume(type) {
+    const current = this.get(0);
+    if (type !== current.type) throw new Error("Token " + current + " doesn't match " + type);
+    this.pos++;
+    return current;
   }
 
   match(type) {
@@ -103,4 +125,4 @@ class Parser {
   }
 }
 
-module.exports = { Parser };
+module.exports = {Parser};

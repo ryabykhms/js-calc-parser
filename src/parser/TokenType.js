@@ -10,6 +10,7 @@ const TokenType = {
 
   LPAREN: 'LPAREN',
   RPAREN: 'RPAREN',
+  COMMA: 'COMMA',
 
   EOF: 'EOF',
 };
