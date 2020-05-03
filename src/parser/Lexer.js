@@ -88,7 +88,7 @@ class Lexer {
   tokenizeWord() {
     let buffer = '';
     let current = this.peek(0);
-    while (this.isLetter(current)) {
+    while (this.isLetter(current) || this.isNumber(current) && buffer.indexOf(' ') === -1) {
       buffer += current;
       current = this.next();
     }

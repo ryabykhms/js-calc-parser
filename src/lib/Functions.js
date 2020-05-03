@@ -5,7 +5,7 @@ class Functions {
     sin: args => Functions.execFunction(Math.sin, args),
     cos: args => Functions.execFunction(Math.cos, args),
     tg: args => Functions.execFunction(Math.tan, args),
-    ctg: args => Functions.execFunction(this.ctg, args),
+    ctg: args => Functions.execFunction(Functions.ctg, args),
     asin: args => Functions.execFunction(Math.asin, args),
     acos: args => Functions.execFunction(Math.acos, args),
     atan: args => Functions.execFunction(Math.atan, args),
@@ -21,10 +21,19 @@ class Functions {
     log10: args => Functions.execFunction(Math.log10, args),
     log2: args => Functions.execFunction(Math.log2, args),
     pow: args => Functions.execFunction(Math.pow, args),
+    // other
+    fact: args => Functions.execFunction(Functions.fact, args)
   };
 
-  static ctg(args) {
-    return 1 / Math.tan(args);
+  static fact(x) {
+    let value=1;
+    for (let i = 2; i <= x; i++)
+      value = value * i;
+    return value;
+  }
+
+  static ctg(x) {
+    return 1 / Math.tan(x);
   }
 
   static execFunction(func, args) {

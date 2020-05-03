@@ -8,7 +8,7 @@ Supported features:
 - [x] Parentheses
 - [x] Basic math operations
 - [x] Trigonometric operations
-- [ ] Logarithmic operations
+- [x] Logarithmic operations
 - [ ] Percent operation
 - [x] Constants
-- [ ] Factorial
+- [x] Factorial
