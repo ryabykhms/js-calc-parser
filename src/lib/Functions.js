@@ -22,8 +22,13 @@ class Functions {
     log2: args => Functions.execFunction(Math.log2, args),
     pow: args => Functions.execFunction(Math.pow, args),
     // other
-    fact: args => Functions.execFunction(Functions.fact, args)
+    fact: args => Functions.execFunction(Functions.fact, args),
+    percent: args => Functions.execFunction(Functions.percent, args),
   };
+
+  static percent(x, y) {
+    return (x/100)*y;
+  }
 
   static fact(x) {
     let value=1;
