@@ -9,6 +9,6 @@ Supported features:
 - [x] Basic math operations
 - [x] Trigonometric operations
 - [x] Logarithmic operations
-- [ ] Percent operation
+- [x] Percent operation
 - [x] Constants
 - [x] Factorial
