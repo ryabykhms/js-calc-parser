@@ -37,7 +37,17 @@ class Parser {
   }
 
   expression() {
-    return this.additive();
+    return this.fact();
+  }
+
+  fact() {
+    const result = this.additive();
+    if (this.match(TokenType.FACT)) {
+      const functionalExpression = new FunctionalExpression('fact');
+      functionalExpression.addArgument(result);
+      return functionalExpression;
+    }
+    return result;
   }
 
   additive() {
@@ -90,6 +100,7 @@ class Parser {
     if (this.match(TokenType.HEX_NUMBER)) {
       return new NumberExpression(parseInt(current, 16));
     }
+
     if (this.get(0).type === TokenType.WORD && this.get(1).type === TokenType.LPAREN) {
       return this.func();
     }

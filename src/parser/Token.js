@@ -4,7 +4,6 @@ class Token {
     this._text = text;
   }
 
-
   get type() {
     return this._type;
   }
