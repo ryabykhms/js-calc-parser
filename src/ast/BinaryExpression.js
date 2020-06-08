@@ -16,6 +16,8 @@ class BinaryExpression extends Expression {
         return this.expressionLeft.evaluate() * this.expressionRight.evaluate();
       case '/':
         return this.expressionLeft.evaluate() / this.expressionRight.evaluate();
+      case '^':
+        return Math.pow(this.expressionLeft.evaluate(), this.expressionRight.evaluate());
       case '+':
       default:
         return this.expressionLeft.evaluate() + this.expressionRight.evaluate();

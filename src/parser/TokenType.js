@@ -13,6 +13,7 @@ const TokenType = {
   COMMA: 'COMMA',
 
   FACT: 'FACT',
+  POW: 'POW',
 
   EOF: 'EOF',
 };

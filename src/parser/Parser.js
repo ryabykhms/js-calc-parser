@@ -41,11 +41,23 @@ class Parser {
   }
 
   fact() {
-    const result = this.additive();
+    const result = this.power();
     if (this.match(TokenType.FACT)) {
       const functionalExpression = new FunctionalExpression('fact');
       functionalExpression.addArgument(result);
       return functionalExpression;
+    }
+    return result;
+  }
+
+  power() {
+    let result = this.additive();
+    while (true) {
+      if (this.match(TokenType.POW)) {
+        result = new BinaryExpression('^', result, this.additive());
+        continue;
+      }
+      break;
     }
     return result;
   }
