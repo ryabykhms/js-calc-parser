@@ -14,6 +14,7 @@ const TokenType = {
 
   FACT: 'FACT',
   POW: 'POW',
+  PERCENT: 'PERCENT',
 
   EOF: 'EOF',
 };

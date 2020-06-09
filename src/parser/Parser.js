@@ -64,13 +64,24 @@ class Parser {
 
   additive() {
     let result = this.multiplicative();
+    let rightExpression = null;
     while (true) {
       if (this.match(TokenType.PLUS)) {
-        result = new BinaryExpression('+', result, this.multiplicative());
+        rightExpression = this.multiplicative();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('+%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('+', result, rightExpression);
+        }
         continue;
       }
       if (this.match(TokenType.MINUS)) {
-        result = new BinaryExpression('-', result, this.multiplicative());
+        rightExpression = this.multiplicative();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('-%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('-', result, rightExpression);
+        }
         continue;
       }
       break;
@@ -80,13 +91,24 @@ class Parser {
 
   multiplicative() {
     let result = this.unary();
+    let rightExpression = null;
     while (true) {
       if (this.match(TokenType.STAR)) {
-        result = new BinaryExpression('*', result, this.unary());
+        rightExpression = this.unary();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('*%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('*', result, rightExpression);
+        }
         continue;
       }
       if (this.match(TokenType.SLASH)) {
-        result = new BinaryExpression('/', result, this.unary());
+        rightExpression = this.unary();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('/%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('/', result, rightExpression);
+        }
         continue;
       }
       break;
