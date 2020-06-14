@@ -41,23 +41,11 @@ class Parser {
   }
 
   fact() {
-    const result = this.power();
+    const result = this.additive();
     if (this.match(TokenType.FACT)) {
       const functionalExpression = new FunctionalExpression('fact');
       functionalExpression.addArgument(result);
       return functionalExpression;
-    }
-    return result;
-  }
-
-  power() {
-    let result = this.additive();
-    while (true) {
-      if (this.match(TokenType.POW)) {
-        result = new BinaryExpression('^', result, this.additive());
-        continue;
-      }
-      break;
     }
     return result;
   }
@@ -90,11 +78,11 @@ class Parser {
   }
 
   multiplicative() {
-    let result = this.unary();
+    let result = this.power();
     let rightExpression = null;
     while (true) {
       if (this.match(TokenType.STAR)) {
-        rightExpression = this.unary();
+        rightExpression = this.power();
         if (this.match(TokenType.PERCENT)) {
           result = new BinaryExpression('*%', result, rightExpression);
         } else {
@@ -103,12 +91,24 @@ class Parser {
         continue;
       }
       if (this.match(TokenType.SLASH)) {
-        rightExpression = this.unary();
+        rightExpression = this.power();
         if (this.match(TokenType.PERCENT)) {
           result = new BinaryExpression('/%', result, rightExpression);
         } else {
           result = new BinaryExpression('/', result, rightExpression);
         }
+        continue;
+      }
+      break;
+    }
+    return result;
+  }
+
+  power() {
+    let result = this.unary();
+    while (true) {
+      if (this.match(TokenType.POW)) {
+        result = new BinaryExpression('^', result, this.unary());
         continue;
       }
       break;
