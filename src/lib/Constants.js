@@ -9,14 +9,14 @@ class Constants {
   };
 
   static isExists(key) {
-    return Constants.constants.hasOwnProperty(key);
+    return Constants.constants.hasOwnProperty(key.toUpperCase());
   }
 
   static get(key) {
     if (!this.isExists(key)) {
       return 0;
     } else {
-      return Constants.constants[key];
+      return Constants.constants[key.toUpperCase()];
     }
   }
 }
